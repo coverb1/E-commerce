@@ -4,10 +4,14 @@ import download2 from './download2.jpg'
 import user from './user.png'
 import search from './search.png'
 import shoppingbag from './shoppingbag.png'
+import menu from './menu.png'
+import downarrow from './downarrow.png'
 export const assets={
     user,
     search,
-    shoppingbag
+    shoppingbag,
+    menu,
+    downarrow
 }
 
 
