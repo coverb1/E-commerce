@@ -1,9 +1,11 @@
 import React from 'react'
+import LatestCollection from '../components/LatestCollection'
 
 const Home = () => {
   return (
     <div>
-      <p className=''></p>
+      <LatestCollection/>
+     
     </div>
   )
 }

@@ -1,8 +1,97 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { shopContext } from '../context/shopContext'
+import ProductItem from '../components/ProductItem'
 
 const Collection = () => {
+  const { products } = useContext(shopContext)
+  const [filterProducts, setFilterProducts] = useState([])
+  const [Category,setcategory]=useState([])
+  const [subCategory,setsubCategory]=useState([])
+
+  const togglecategory=(e)=>{
+    if (Category.includes(e.target.value)) {
+    setcategory(prev=>prev.filter(item=>item !==e.target.value))  
+    }
+    else{
+      setcategory((prev)=>[...prev,e.target.value])
+    }
+  }
+
+  useEffect(() => {
+    setFilterProducts(products)
+  }, [products])
+
+useEffect(()=>{
+console.log(Category)
+},[Category])
+
   return (
-    <div>Collection</div>
+    <div className="flex flex-col sm:flex-row gap-10 pt-10 border-t">
+
+      {/* LEFT SIDEBAR */}
+      <div className="w-full sm:w-64">
+        <p className="text-xl font-semibold mb-5">Filters</p>
+
+        {/* Category */}
+        <div className="border rounded-lg p-5 mb-5">
+          <p className="text-sm font-medium mb-3">Categories</p>
+          <div className="flex flex-col gap-3 text-sm text-gray-600">
+            <label className="flex items-center gap-2">
+              <input type="checkbox" value={'Men'} onChange={togglecategory} /> Men
+            </label>
+            <label className="flex items-center gap-2">
+              <input type="checkbox" value={'Women'} onChange={togglecategory} /> Women
+            </label>
+            <label className="flex items-center gap-2">
+              <input type="checkbox" value={'Kids'} onChange={togglecategory} /> Kids
+            </label>
+          </div>
+        </div>
+
+        {/* Type */}
+        <div className="border rounded-lg p-5">
+          <p className="text-sm font-medium mb-3">Type</p>
+          <div className="flex flex-col gap-3 text-sm text-gray-600">
+            <label className="flex items-center gap-2">
+              <input type="checkbox" /> Topwear
+            </label>
+            <label className="flex items-center gap-2">
+              <input type="checkbox" /> Bottomwear
+            </label>
+            <label className="flex items-center gap-2">
+              <input type="checkbox" /> Winterwear
+            </label>
+          </div>
+        </div>
+      </div>
+
+      {/* RIGHT CONTENT */}
+      <div className="flex-1">
+
+        {/* Sort */}
+        <div className="flex justify-end mb-6">
+          <select className="border border-gray-300 rounded-md text-sm px-3 py-2">
+            <option>Sort by: Relevant</option>
+            <option>Price: Low to High</option>
+            <option>Price: High to Low</option>
+          </select>
+        </div>
+
+        {/* Products Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {filterProducts.map((item, index) => (
+            <ProductItem
+              key={index}
+              id={item._id}
+              image={item.image}
+              name={item.name}
+              price={item.price}
+            />
+          ))}
+        </div>
+
+      </div>
+    </div>
   )
 }
 

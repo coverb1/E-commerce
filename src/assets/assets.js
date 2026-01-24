@@ -6,6 +6,10 @@ import search from './search.png'
 import shoppingbag from './shoppingbag.png'
 import menu from './menu.png'
 import downarrow from './downarrow.png'
+import collection1 from './collection1.jpg'
+import dress1 from  './dress1.jpg'
+import drip from './shirt1.jpg'
+import shirt1 from './shirt1.jpg'
 export const assets={
     user,
     search,
@@ -26,5 +30,54 @@ export const products = [
         sizes: ["M", "L", "XL"],
         date: 12234,
         bestseller: true
-    }
+    },
+
+{
+      _id: "2",
+        name: "Boys jeans",
+        description: "this are  good jeans for boy , this  is the best quality",
+        price: 200,
+        image: collection1,
+        category: "men",
+        sizes: ["M", "L", "XL"],
+        date: 12234,
+        bestseller: true
+},
+
+{
+      _id: "3",
+        name: "Boys jeans",
+        description: "this are  good jeans for boy , this  is the best quality",
+        price: 200,
+        image: drip,
+        category: "men",
+        sizes: ["M", "L", "XL"],
+        date: 12234,
+        bestseller: true
+},
+
+{
+      _id: "4",
+        name: "Boys jeans",
+        description: "this are  good jeans for boy , this  is the best quality",
+        price: 200,
+        image: shirt1,
+        category: "men",
+        sizes: ["M", "L", "XL"],
+        date: 12234,
+        bestseller: true
+},
+
+
+{
+      _id: "5",
+        name: "Boys jeans",
+        description: "this are  good jeans for boy , this  is the best quality",
+        price: 200,
+        image: dress1,
+        category: "men",
+        sizes: ["M", "L", "XL"],
+        date: 12234,
+        bestseller: true
+}
 ]
