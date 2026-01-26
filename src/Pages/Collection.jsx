@@ -7,6 +7,7 @@ const Collection = () => {
   const [filterProducts, setFilterProducts] = useState([])
   const [Category,setcategory]=useState([])
   const [subCategory,setsubCategory]=useState([])
+  const [sortType,setsortType]=useState('relevant')
 
   const togglecategory=(e)=>{
     if (Category.includes(e.target.value)) {
@@ -17,13 +18,50 @@ const Collection = () => {
     }
   }
 
-  useEffect(() => {
-    setFilterProducts(products)
-  }, [products])
+const togglesubcategory=(e)=>{
+  if (subCategory.includes(e.target.value)) {
+    setsubCategory(prev=>prev.filter(item=>item !==e.target.value))
+  }
+  else{
+    setsubCategory((prev=>[...prev,e.target.value]))
+  }
+}
 
 useEffect(()=>{
-console.log(Category)
-},[Category])
+  setFilterProducts(products)
+},[subCategory])
+
+const applyfiltter=()=>{
+  let productsCopy=products.slice()
+
+  if (Category.length>0) {
+    productsCopy=productsCopy.filter(item=>Category.includes(item.category));
+  }
+  setFilterProducts(productsCopy)
+}
+
+useEffect(()=>{
+console.log(subCategory)
+},[subCategory])
+
+useEffect(()=>{
+applyfiltter()
+},[Category,subCategory])
+
+const sortProduct=()=>{
+  let fpCopy=filterProducts.slice()
+  switch(sortType){
+    case 'low-high':
+      setFilterProducts(fpCopy.sort((a,b)=>(a.price-b.price)))
+      break;
+      case 'high-low':
+        setFilterProducts(fpCopy.sort((a,b)=>(b.price-a.price)))
+        break;
+        default:
+          applyfiltter();
+          break;
+  }
+}
 
   return (
     <div className="flex flex-col sm:flex-row gap-10 pt-10 border-t">
@@ -37,13 +75,13 @@ console.log(Category)
           <p className="text-sm font-medium mb-3">Categories</p>
           <div className="flex flex-col gap-3 text-sm text-gray-600">
             <label className="flex items-center gap-2">
-              <input type="checkbox" value={'Men'} onChange={togglecategory} /> Men
+              <input type="checkbox" value={'men'} onChange={togglecategory} /> Men
             </label>
             <label className="flex items-center gap-2">
-              <input type="checkbox" value={'Women'} onChange={togglecategory} /> Women
+              <input type="checkbox" value={'girl'} onChange={togglecategory} /> Women
             </label>
             <label className="flex items-center gap-2">
-              <input type="checkbox" value={'Kids'} onChange={togglecategory} /> Kids
+              <input type="checkbox" value={'kids'} onChange={togglecategory} /> Kids
             </label>
           </div>
         </div>
@@ -53,13 +91,13 @@ console.log(Category)
           <p className="text-sm font-medium mb-3">Type</p>
           <div className="flex flex-col gap-3 text-sm text-gray-600">
             <label className="flex items-center gap-2">
-              <input type="checkbox" /> Topwear
+              <input type="checkbox" value={'Topwear'} onChange={togglesubcategory} /> Topwear
             </label>
             <label className="flex items-center gap-2">
-              <input type="checkbox" /> Bottomwear
+              <input type="checkbox" value={'Bottomwear'} onChange={togglesubcategory} /> Bottomwear
             </label>
             <label className="flex items-center gap-2">
-              <input type="checkbox" /> Winterwear
+              <input type="checkbox" value={'Winterwear'} onChange={togglesubcategory} /> Winterwear
             </label>
           </div>
         </div>
@@ -70,7 +108,7 @@ console.log(Category)
 
         {/* Sort */}
         <div className="flex justify-end mb-6">
-          <select className="border border-gray-300 rounded-md text-sm px-3 py-2">
+          <select onChange={(e)=>setsortType(e.target.value)} className="border border-gray-300 rounded-md text-sm px-3 py-2">
             <option>Sort by: Relevant</option>
             <option>Price: Low to High</option>
             <option>Price: High to Low</option>
