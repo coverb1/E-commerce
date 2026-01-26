@@ -2,12 +2,13 @@ import React, { useContext, useEffect, useState } from 'react'
 import { shopContext } from '../context/shopContext'
 import ProductItem from '../components/ProductItem'
 
+
 const Collection = () => {
   const { products } = useContext(shopContext)
   const [filterProducts, setFilterProducts] = useState([])
   const [Category,setcategory]=useState([])
   const [subCategory,setsubCategory]=useState([])
-  const [sortType,setsortType]=useState('relevant')
+  const [sortType,setsortType]=useState('Relevant')
 
   const togglecategory=(e)=>{
     if (Category.includes(e.target.value)) {
@@ -63,6 +64,10 @@ const sortProduct=()=>{
   }
 }
 
+useEffect(()=>{
+sortProduct()
+},[sortType])
+
   return (
     <div className="flex flex-col sm:flex-row gap-10 pt-10 border-t">
 
@@ -109,9 +114,9 @@ const sortProduct=()=>{
         {/* Sort */}
         <div className="flex justify-end mb-6">
           <select onChange={(e)=>setsortType(e.target.value)} className="border border-gray-300 rounded-md text-sm px-3 py-2">
-            <option>Sort by: Relevant</option>
-            <option>Price: Low to High</option>
-            <option>Price: High to Low</option>
+            <option value='Relevant'>Sort by: Relevant</option>
+            <option value='low-high'>Price: Low to High</option>
+            <option value='high-low'>Price: High to Low</option>
           </select>
         </div>
 

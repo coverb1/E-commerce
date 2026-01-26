@@ -10,10 +10,12 @@ import Product from './Pages/Product'
 import PlaceOrders from './Pages/PlaceOrders'
 import Navbar from './components/Navbar'
 import Cart from './Pages/Cart'
+import SearchBar from './components/SearchBar'
 const App = () => {
   return (
     <div>
       <Navbar/>
+      <SearchBar/>
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />

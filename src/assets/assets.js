@@ -17,12 +17,14 @@ import girl4 from './girl4.jpg'
 import kid1 from './kid1.jpg'
 import kid2 from './kid2.jpg'
 import kid3 from './kid1.jpg'
+import close from './close.png'
 export const assets={
     user,
     search,
     shoppingbag,
     menu,
-    downarrow
+    downarrow,
+    close
 }
 
 
