@@ -1,19 +1,27 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { shopContext } from '../context/shopContext'
 import { assets } from '../assets/assets'
+import { useLocation } from 'react-router-dom'
 
 const SearchBar = () => {
 
-  const {
-    search,
-    setSearch,
-    showSearch,
-    setshowSearch,
-  } = useContext(shopContext)
+  const { search, setSearch, showSearch, setshowSearch, } = useContext(shopContext);
 
-  if (!showSearch) return null
+  const [visible, setvisible] = useState(false)
+  const location = useLocation()
 
-  return (
+  useEffect(() => {
+    if (location.pathname.includes('collection') && showSearch) {
+      setvisible(true)
+    }
+    else {
+      setvisible(false)
+    }
+  }, [location])
+
+  // if (!showSearch) return null
+
+  return showSearch && visible?(
     <div className="border-t border-b bg-gray-50 text-center">
       <div
         className="inline-flex items-center justify-between
@@ -27,16 +35,10 @@ const SearchBar = () => {
           onChange={(e) => setSearch(e.target.value)}
           className="flex-1 bg-transparent outline-none text-sm"
         />
-
-        <img
-          src={assets.close}
-          alt="close"
-          className="w-4 cursor-pointer ml-3"
-          onClick={() => setshowSearch(false)}
-        />
+        <img src={assets.close} alt="close" className="w-4 cursor-pointer ml-3" onClick={() => setshowSearch(false)} />
       </div>
     </div>
-  )
+  ):null
 }
 
 export default SearchBar
