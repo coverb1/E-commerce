@@ -4,76 +4,76 @@ import ProductItem from '../components/ProductItem'
 
 
 const Collection = () => {
-  const { products,search,showsearch } = useContext(shopContext)
+  const { products, search, showsearch } = useContext(shopContext)
   const [filterProducts, setFilterProducts] = useState([])
-  const [Category,setcategory]=useState([])
-  const [subCategory,setsubCategory]=useState([])
-  const [sortType,setsortType]=useState('Relevant')
+  const [Category, setcategory] = useState([])
+  const [subCategory, setsubCategory] = useState([])
+  const [sortType, setsortType] = useState('Relevant')
 
-  const togglecategory=(e)=>{
+  const togglecategory = (e) => {
     if (Category.includes(e.target.value)) {
-    setcategory(prev=>prev.filter(item=>item !==e.target.value))  
+      setcategory(prev => prev.filter(item => item !== e.target.value))
     }
-    else{
-      setcategory((prev)=>[...prev,e.target.value])
+    else {
+      setcategory((prev) => [...prev, e.target.value])
     }
   }
 
-const togglesubcategory=(e)=>{
-  if (subCategory.includes(e.target.value)) {
-    setsubCategory(prev=>prev.filter(item=>item !==e.target.value))
-  }
-  else{
-    setsubCategory((prev=>[...prev,e.target.value]))
-  }
-}
-
-useEffect(()=>{
-  setFilterProducts(products)
-},[subCategory])
-
-const applyfiltter=()=>{
-  let productsCopy=products.slice()
-  if (search&&showsearch) {
-    productsCopy=productsCopy.filter((item)=>item.name.toLowerCase().includes(search.toLowerCase()))
+  const togglesubcategory = (e) => {
+    if (subCategory.includes(e.target.value)) {
+      setsubCategory(prev => prev.filter(item => item !== e.target.value))
+    }
+    else {
+      setsubCategory((prev => [...prev, e.target.value]))
+    }
   }
 
-  if (Category.length>0) {
-    productsCopy=productsCopy.filter(item=>Category.includes(item.category));
+  useEffect(() => {
+    setFilterProducts(products)
+  }, [subCategory])
+
+  const applyfiltter = () => {
+    let productsCopy = products.slice()
+    if (search && showsearch) {
+      productsCopy = productsCopy.filter(item => item.name.toLowerCase().includes(search.toLowerCase()))
+    }
+
+    if (Category.length > 0) {
+      productsCopy = productsCopy.filter(item => Category.includes(item.category));
+    }
+    setFilterProducts(productsCopy)
   }
-  setFilterProducts(productsCopy)
-}
 
-useEffect(()=>{
-console.log(subCategory)
-},[subCategory])
+  useEffect(() => {
+    console.log(subCategory)
+  }, [subCategory])
 
-useEffect(()=>{
-applyfiltter()
-},[Category,subCategory,search,showsearch])
+  useEffect(() => {
+    applyfiltter()
+  }, [Category, subCategory, search, showsearch])
 
-useEffect(()=>{
-  setFilterProducts(products)
-})
+  useEffect(() => {
+    setFilterProducts(products)
+  })
 
-const sortProduct=()=>{
-  let fpCopy=filterProducts.slice()
-  switch(sortType){
-    case 'low-high':
-      setFilterProducts(fpCopy.sort((a,b)=>(a.price-b.price)))
-      break;
-      case 'high-low':
-        setFilterProducts(fpCopy.sort((a,b)=>(b.price-a.price)))
+  const sortProduct = () => {
+    let fpCopy = filterProducts.slice()
+    switch (sortType) {
+      case 'low-high':
+        setFilterProducts(fpCopy.sort((a, b) => (a.price - b.price)))
         break;
-        default:
-          applyfiltter();
-          break;
+      case 'high-low':
+        setFilterProducts(fpCopy.sort((a, b) => (b.price - a.price)))
+        break;
+      default:
+        applyfiltter();
+        break;
+    }
   }
-}
 
-useEffect(()=>{
-sortProduct()
-},[sortType])
+  useEffect(() => {
+    sortProduct()
+  }, [sortType])
 
 
   return (
@@ -121,7 +121,7 @@ sortProduct()
 
         {/* Sort */}
         <div className="flex justify-end mb-6">
-          <select onChange={(e)=>setsortType(e.target.value)} className="border border-gray-300 rounded-md text-sm px-3 py-2">
+          <select onChange={(e) => setsortType(e.target.value)} className="border border-gray-300 rounded-md text-sm px-3 py-2">
             <option value='Relevant'>Sort by: Relevant</option>
             <option value='low-high'>Price: Low to High</option>
             <option value='high-low'>Price: High to Low</option>

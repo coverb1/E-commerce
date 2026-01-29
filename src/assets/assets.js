@@ -1,4 +1,4 @@
-import download from './download1.jpg'
+import download3 from './download3.jpg'
 import download1 from './download1.jpg'
 import download2 from './download2.jpg'
 import user from './user.png'
@@ -7,8 +7,13 @@ import shoppingbag from './shoppingbag.png'
 import menu from './menu.png'
 import downarrow from './downarrow.png'
 import collection1 from './collection1.jpg'
+import collection2 from './collection2.jpg'
+import collection3 from './collection3.jpg'
+import collection4 from './collection4.jpg'
+import drip2 from './drip2.jpg'
+import drip from './drip3.jpg'
 import dress1 from  './dress1.jpg'
-import drip from './shirt1.jpg'
+import drip1 from './drip1.jpg'
 import shirt1 from './shirt1.jpg'
 import  girl1 from './girl1.jpg'
 import girl2 from './girl2.jpg'
@@ -16,7 +21,7 @@ import girl3 from './girl3.jpg'
 import girl4 from './girl4.jpg'
 import kid1 from './kid1.jpg'
 import kid2 from './kid2.jpg'
-import kid3 from './kid1.jpg'
+import kid3 from './kid3.jpg'
 import close from './close.png'
 export const assets={
     user,
@@ -34,7 +39,7 @@ export const products = [
         name: "Boys jeans",
         description: "this are  good jeans for boy , this  is the best quality",
         price: 200,
-        image: download,
+        image: [download1,download1],
         category: "men",
         sizes: ["M", "L", "XL"],
         date: 12234,
@@ -46,7 +51,7 @@ export const products = [
         name: "Boys jeans",
         description: "this are  good jeans for boy , this  is the best quality",
         price: 200,
-        image: collection1,
+        image: [collection1,collection2,collection3,collection4],
         category: "men",
         sizes: ["M", "L", "XL"],
         date: 12234,
@@ -58,7 +63,7 @@ export const products = [
         name: "Boys jeans",
         description: "this are  good jeans for boy , this  is the best quality",
         price: 200,
-        image: drip,
+        image: [drip1,drip1,drip2],
         category: "men",
         sizes: ["M", "L", "XL"],
         date: 12234,
@@ -70,7 +75,7 @@ export const products = [
         name: "Boys jeans",
         description: "this are  good jeans for boy , this  is the best quality",
         price: 200,
-        image: shirt1,
+        image: [shirt1],
         category: "men",
         sizes: ["M", "L", "XL"],
         date: 12234,
@@ -83,7 +88,7 @@ export const products = [
         name: "Boys jeans",
         description: "this are  good jeans for boy , this  is the best quality",
         price: 200,
-        image: dress1,
+        image: [dress1],
         category: "men",
         sizes: ["M", "L", "XL"],
         date: 12234,
@@ -95,7 +100,7 @@ export const products = [
         name: "Boys jeans",
         description: "this are  good jeans for boy , this  is the best quality",
         price: 200,
-        image: girl1,
+        image: [girl1],
         category: "girl",
         sizes: ["M", "L", "XL"],
         date: 12234,
@@ -107,7 +112,7 @@ export const products = [
         name: "Boys jeans",
         description: "this are  good jeans for boy , this  is the best quality",
         price: 200,
-        image: kid1,
+        image: [kid1],
         category: "kids",
         sizes: ["M", "L", "XL"],
         date: 12234,
