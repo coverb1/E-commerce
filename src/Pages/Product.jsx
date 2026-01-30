@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { shopContext } from '../context/shopContext'
 import { assets } from '../assets/assets'
+import RelatedProducts from '../components/RelatedProducts'
 
 const Product = () => {
   const { productId } = useParams()
@@ -78,19 +79,24 @@ const Product = () => {
           <button className='bg-black text-white px-8 py-3 text-sm active:bg-gray-700'>ADD TO CART</button>
           <hr className='mt-8 sm:w-4/5' />
           <div className='text-sm text-gray-500 flex flex-col gap-1 mt-5'>
-<p>100% Original Products.</p>
-<p>Cash on delivery is available on this products.</p>
-<p>Easy return and exhange within 7 days policy.</p>
+            <p>100% Original Products.</p>
+            <p>Cash on delivery is available on this products.</p>
+            <p>Easy return and exhange within 7 days policy.</p>
           </div>
         </div>
       </div>
       {/* descrption & review section */}
       <div className='mt-20'>
-<div className='flex'>
-<b className='border px-5 py-3 text-sm'>Description</b>
-<p className='border px-5 py-3 text-sm'>reviews</p>
-</div>
+        <div className='flex'>
+          <b className='border px-5 py-3 text-sm'>Description</b>
+          <p className='border px-5 py-3 text-sm'>reviews(122)</p>
+        </div>
+        <div className='flex flex-col gap-4 px-6 py-6 text-sm text-gray-500'>
+<p>an Ecommerce</p>
+        </div>
       </div>
+      {/* Related products */}
+      <RelatedProducts category={productData.category} />
     </div>
   ) : null
 }
