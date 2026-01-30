@@ -52,7 +52,18 @@ const Product = () => {
             className="w-full max-w-[420px] object-contain rounded-lg"
           />
         </div>
-
+{/* product info */}
+<div className='flex-1'>
+<p className='font-medium text-2xl mt-2'>{productData.name}</p>
+<div className='flex items-center gap-1 mt-2'>
+<img src="" alt="" className='w-5 3' />
+<img src="" alt="" className='w-5 3' />
+<img src="" alt="" className='w-5 3' />
+<img src="" alt="" className='w-5 3' />
+<img src="" alt="" className='w-5 3' />
+<img src="" alt="" />
+</div>
+</div>
       </div>
     </div>
   ) : null
