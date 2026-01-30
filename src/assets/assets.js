@@ -11,6 +11,7 @@ import collection2 from './collection2.jpg'
 import collection3 from './collection3.jpg'
 import collection4 from './collection4.jpg'
 import drip2 from './drip2.jpg'
+import star from './star.png'
 import drip from './drip3.jpg'
 import dress1 from  './dress1.jpg'
 import drip1 from './drip1.jpg'
@@ -29,7 +30,8 @@ export const assets={
     shoppingbag,
     menu,
     downarrow,
-    close
+    close,
+    star
 }
 
 

@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { shopContext } from '../context/shopContext'
+import { assets } from '../assets/assets'
 
 const Product = () => {
   const { productId } = useParams()
-  const { products } = useContext(shopContext)
-
+  const { products, currency } = useContext(shopContext)
+  const [size, setSize] = useState('')
   const [productData, setproductData] = useState(false)
   const [image, setImage] = useState('')
 
@@ -52,17 +53,42 @@ const Product = () => {
             className="w-full max-w-[420px] object-contain rounded-lg"
           />
         </div>
-{/* product info */}
-<div className='flex-1'>
-<p className='font-medium text-2xl mt-2'>{productData.name}</p>
-<div className='flex items-center gap-1 mt-2'>
-<img src="" alt="" className='w-5 3' />
-<img src="" alt="" className='w-5 3' />
-<img src="" alt="" className='w-5 3' />
-<img src="" alt="" className='w-5 3' />
-<img src="" alt="" className='w-5 3' />
-<img src="" alt="" />
-</div>
+        {/* product info */}
+        <div className='flex-1'>
+          <p className='font-medium text-2xl mt-2'>{productData.name}</p>
+          <div className='flex items-center gap-1 mt-2'>
+            <img src={assets.star} alt="" className='w-5 3' />
+            <img src={assets.star} alt="" className='w-5 3' />
+            <img src={assets.star} alt="" className='w-5 3' />
+            <img src={assets.star} alt="" className='w-5 3' />
+            <img src={assets.star} alt="" className='w-5 3' />
+            <img src={assets.star} alt="" className='w-5 3' />
+            <p className='pl-2'>(122)</p>
+          </div>
+          <p className='mt-5 text-3xl font-medium'>{currency}{productData.price}</p>
+          <p className='mt-5 text-gray-500 md:w-4/5'>{productData.description}</p>
+          <div className=' flex flex-col gap-4 my-8'>
+            <p>Select size</p>
+            <div className='flex gap-2'>
+              {productData.sizes.map((item, index) => (
+                <button onClick={() => setSize(item)} className={`border py-2 px-4 bg-gray-100 ${item === size ? 'border-gray-800' : ''}`} key={index}>{item}</button>
+              ))}
+            </div>
+          </div >
+          <button className='bg-black text-white px-8 py-3 text-sm active:bg-gray-700'>ADD TO CART</button>
+          <hr className='mt-8 sm:w-4/5' />
+          <div className='text-sm text-gray-500 flex flex-col gap-1 mt-5'>
+<p>100% Original Products.</p>
+<p>Cash on delivery is available on this products.</p>
+<p>Easy return and exhange within 7 days policy.</p>
+          </div>
+        </div>
+      </div>
+      {/* descrption & review section */}
+      <div className='mt-20'>
+<div className='flex'>
+<b className='border px-5 py-3 text-sm'>Description</b>
+<p className='border px-5 py-3 text-sm'>reviews</p>
 </div>
       </div>
     </div>
