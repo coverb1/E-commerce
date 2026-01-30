@@ -9,11 +9,14 @@ import Order from './Pages/Order'
 import Product from './Pages/Product'
 import PlaceOrders from './Pages/PlaceOrders'
 import Navbar from './components/Navbar'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import Cart from './Pages/Cart'
 import SearchBar from './components/SearchBar'
 const App = () => {
   return (
-    <div>
+    <div className='px-4 sm:-[5vw] md:px-[7vw] lg:px-[9vw]'>
+      <ToastContainer />
       <Navbar/>
       <SearchBar/>
       <Routes>
