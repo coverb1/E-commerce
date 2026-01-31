@@ -3,12 +3,12 @@ import { NavLink } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { assets } from '../assets/assets'
 import { useContext } from 'react'
-import { shopContext } from '../context/shopContext'
+import { shopContext } from '../context/ShopContext'
 
 const Navbar = () => {
 
     const [visible, setvisible] = useState(false)
-    const {showSearch,setshowSearch}=useContext(shopContext)
+    const {showSearch,setshowSearch,getCartCount}=useContext(shopContext)
 
     return (
         <div>
@@ -56,13 +56,16 @@ const Navbar = () => {
                             </div>
                         </div>
                     </div>
+
+{/* counting Icon navbar */}
+
                     <Link to="/cart" className="relative">
                         <img
                             src={assets.shoppingbag} alt="Cart" className="w-5 cursor-pointer" />
 
                         <span
                             className="absolute -top-2 -right-2 w-4 h-4 flex items-center 
-    justify-center bg-black text-white rounded-full text-[10px] font-medium">10
+    justify-center bg-black text-white rounded-full text-[10px] font-medium">{getCartCount()}
                         </span>
                     </Link>
                     <img onClick={() => setvisible(true)} src={assets.menu} alt="" className='w-5 cursor-pointer sm:hidden ' />

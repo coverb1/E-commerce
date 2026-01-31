@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { shopContext } from '../context/shopContext'
+import { shopContext } from '../context/ShopContext'
 import { assets } from '../assets/assets'
 import RelatedProducts from '../components/RelatedProducts'
 
@@ -16,13 +16,18 @@ const Product = () => {
       if (item._id === productId) {
         setproductData(item)
         setImage(item.image[0])
+      return null
       }
     })
   }
 
-  useEffect(() => {
+  useEffect(()=>{
     FetchProductData()
-  }, [productId])
+  },[products,productId])
+
+  useEffect(() => {
+   console.log((cartItem))
+  }, [cartItem])
 
   return productData ? (
     <div className="border py-10 px-16"> {/* space from sides */}

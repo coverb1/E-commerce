@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { shopContext } from '../context/shopContext'
+import { shopContext } from '../context/ShopContext'
 import ProductItem from '../components/ProductItem'
 
 
@@ -54,7 +54,7 @@ const Collection = () => {
 
   useEffect(() => {
     setFilterProducts(products)
-  })
+  },[products])
 
   const sortProduct = () => {
     let fpCopy = filterProducts.slice()

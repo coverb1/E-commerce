@@ -19,10 +19,10 @@ const addToCart=async(itemId,size)=>{
     let cartData=structuredClone(cartItem)
   if (cartData[itemId]) {
     if (cartData[itemId][size]) {
-        cartData[itemId][size]
+        cartData[itemId][size]+=1 //if product exit add size 
     }
     else{
-        cartData[itemId][size]=1;
+        cartData[itemId][size]=1; //if does not exist create 1
     }
   }
   else{
@@ -32,12 +32,21 @@ const addToCart=async(itemId,size)=>{
   setCartItem(cartData)
 }
 
-// const getCartCount=()=>{
-//     let totalcount=0
-//     for(items in cartItem){
-//         for(item in cartItem[items])
-//     }
-// }
+const getCartCount=()=>{
+    let totalCount=0
+    for(let items in cartItem){
+        for(let item in cartItem[items]){
+            try {
+                if (cartItem[items][item]>0) {
+                    totalCount+=cartItem[items][item]
+                }
+            } catch (error) {
+                
+            }
+        }
+    }
+    return totalCount
+}
 
 useEffect(()=>{
 console.log(cartItem)
@@ -51,7 +60,8 @@ console.log(cartItem)
         setSearch,
         showSearch,
         setshowSearch,
-        cartItem,addToCart
+        cartItem,addToCart,
+        getCartCount
     }
 
     return (
