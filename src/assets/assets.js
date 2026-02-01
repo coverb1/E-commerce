@@ -24,6 +24,7 @@ import kid1 from './kid1.jpg'
 import kid2 from './kid2.jpg'
 import kid3 from './kid3.jpg'
 import close from './close.png'
+import deleteIcon from './deleteIcon.png'
 export const assets={
     user,
     search,
@@ -31,7 +32,8 @@ export const assets={
     menu,
     downarrow,
     close,
-    star
+    star,
+    deleteIcon 
 }
 
 
@@ -102,7 +104,7 @@ export const products = [
         name: "Boys jeans",
         description: "this are  good jeans for boy , this  is the best quality",
         price: 200,
-        image: [girl1],
+        image: [girl1,girl2,girl3,girl4],
         category: "girl",
         sizes: ["M", "L", "XL"],
         date: 12234,
@@ -114,7 +116,7 @@ export const products = [
         name: "Boys jeans",
         description: "this are  good jeans for boy , this  is the best quality",
         price: 200,
-        image: [kid1],
+        image: [kid1,kid2,kid3],
         category: "kids",
         sizes: ["M", "L", "XL"],
         date: 12234,

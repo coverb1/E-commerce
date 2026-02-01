@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { shopContext } from '../context/ShopContext'
+import { assets } from '../assets/assets'
+import CartTotal from '../components/CartTotal'
 
 const Cart = () => {
-  const { products, currency, cartItem } = useContext(shopContext)
+  const { products, currency, cartItem, updateQuantity } = useContext(shopContext)
   const [cartData, setCartData] = useState([])
 
   useEffect(() => {
@@ -66,16 +68,20 @@ const Cart = () => {
               </div>
 
               {/* RIGHT: quantity */}
-              <input
-                className="border w-12 sm:w-16 text-center px-1 py-1"
-                type="number"
-                min={1}
-                defaultValue={item.quantity}
-              />
+              <input onChange={(e) => e.target.value === '' || e.target.value === '0' ? null:updateQuantity(item._id,item.size,Number(e.target.value))} className="border w-12 sm:w-16 text-center px-1 py-1" type="number" min={1}
+                defaultValue={item.quantity} />
+              <img onClick={() => updateQuantity(item._id, item.size, 0)} src={assets.deleteIcon} className='w-4 mr-5 sm:w-5 cursor-pointer' alt="" />
             </div>
           )
         })}
       </div>
+
+<div className='flex justify-end my-20'>
+<div className='w-full sm:w-[450px]'>
+<CartTotal/>
+</div>
+</div>
+
     </div>
   )
 }
