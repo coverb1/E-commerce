@@ -8,17 +8,18 @@ import { shopContext } from '../context/ShopContext'
 const Navbar = () => {
 
     const [visible, setvisible] = useState(false)
-    const {showSearch,setshowSearch,getCartCount}=useContext(shopContext)
+    const { showSearch, setshowSearch, getCartCount } = useContext(shopContext)
 
     return (
         <div>
             <nav className="flex items-center justify-between px-10 py-5 border-b">
 
                 {/* LEFT: Logo */}
-                <div className="text-xl font-semibold">
-                    FOREVER.
-                </div>
-
+                <NavLink to='/'>
+                    <div className="text-xl font-semibold">
+                        FOREVER.
+                    </div>
+                </NavLink>
                 {/* CENTER: Menu */}
                 <ul className="flex gap-8 text-sm tracking-wide">
                     <li>
@@ -45,7 +46,7 @@ const Navbar = () => {
 
                 {/* RIGHT: Icons */}
                 <div className="flex items-center gap-4">
-                    <img  onClick={()=>setshowSearch(true )} src={assets.search} alt="" className='w-5 cursor-pointer' />
+                    <img onClick={() => setshowSearch(true)} src={assets.search} alt="" className='w-5 cursor-pointer' />
                     <div className='group relative'>
                         <img src={assets.user} alt="" className='w-5 cursor-pointer' />
                         <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4'>
@@ -57,7 +58,7 @@ const Navbar = () => {
                         </div>
                     </div>
 
-{/* counting Icon navbar */}
+                    {/* counting Icon navbar */}
 
                     <Link to="/cart" className="relative">
                         <img
@@ -76,10 +77,10 @@ const Navbar = () => {
                         <div onClick={() => setvisible(false)} className='flex  items-center gap-4 p-3'>
                             <img src={assets.downarrow} alt="" className='h-4 rotate-180' />
                         </div>
-                        <NavLink onClick={()=>setvisible(false)} className='py pl-6 border' to='/'>Home</NavLink>
-                        <NavLink onClick={()=>setvisible(false)} className='py pl-6 border' to='/collection'>Collection</NavLink>
-                        <NavLink onClick={()=>setvisible(false)} className='py pl-6 border' to='/about'>About</NavLink>
-                        <NavLink onClick={()=>setvisible(false)} className='py pl-6 border' to='/contact'>Contact</NavLink>
+                        <NavLink onClick={() => setvisible(false)} className='py pl-6 border' to='/'>Home</NavLink>
+                        <NavLink onClick={() => setvisible(false)} className='py pl-6 border' to='/collection'>Collection</NavLink>
+                        <NavLink onClick={() => setvisible(false)} className='py pl-6 border' to='/about'>About</NavLink>
+                        <NavLink onClick={() => setvisible(false)} className='py pl-6 border' to='/contact'>Contact</NavLink>
                     </div>
                 </div>
             </nav>

@@ -4,7 +4,7 @@ import { assets } from '../assets/assets'
 import CartTotal from '../components/CartTotal'
 
 const Cart = () => {
-  const { products, currency, cartItem, updateQuantity } = useContext(shopContext)
+  const { products, currency, cartItem, updateQuantity, navigate } = useContext(shopContext)
   const [cartData, setCartData] = useState([])
 
   useEffect(() => {
@@ -68,7 +68,7 @@ const Cart = () => {
               </div>
 
               {/* RIGHT: quantity */}
-              <input onChange={(e) => e.target.value === '' || e.target.value === '0' ? null:updateQuantity(item._id,item.size,Number(e.target.value))} className="border w-12 sm:w-16 text-center px-1 py-1" type="number" min={1}
+              <input onChange={(e) => e.target.value === '' || e.target.value === '0' ? null : updateQuantity(item._id, item.size, Number(e.target.value))} className="border w-12 sm:w-16 text-center px-1 py-1" type="number" min={1}
                 defaultValue={item.quantity} />
               <img onClick={() => updateQuantity(item._id, item.size, 0)} src={assets.deleteIcon} className='w-4 mr-5 sm:w-5 cursor-pointer' alt="" />
             </div>
@@ -76,11 +76,14 @@ const Cart = () => {
         })}
       </div>
 
-<div className='flex justify-end my-20'>
-<div className='w-full sm:w-[450px]'>
-<CartTotal/>
-</div>
-</div>
+      <div className='flex justify-end my-20'>
+        <div className='w-full sm:w-[450px]'>
+          <CartTotal />
+          <div className='w-full text-end'>
+            <button onClick={()=>navigate('/placeOrders')} className='bg-black text-white text-sm my-8 px-8 py-3'>PROCEED TO CHECKOUT</button>
+          </div>
+        </div>
+      </div>
 
     </div>
   )

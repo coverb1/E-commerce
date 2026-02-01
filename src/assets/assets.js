@@ -25,6 +25,8 @@ import kid2 from './kid2.jpg'
 import kid3 from './kid3.jpg'
 import close from './close.png'
 import deleteIcon from './deleteIcon.png'
+import stripelogo from './stripelogo.jpg'
+import rezorpay from './rezorpay.jpg'
 export const assets={
     user,
     search,
@@ -33,7 +35,9 @@ export const assets={
     downarrow,
     close,
     star,
-    deleteIcon 
+    deleteIcon ,
+    stripelogo,
+    rezorpay
 }
 
 
