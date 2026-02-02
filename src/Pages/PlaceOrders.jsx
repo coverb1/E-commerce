@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import CartTotal from '../components/CartTotal'
 import { assets } from '../assets/assets'
+import { shopContext } from '../context/ShopContext'
 
 const PlaceOrders = () => {
+
+const {navigate}=useContext(shopContext)
+
   return (
 
     <div className='flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh]:'>
@@ -46,8 +50,12 @@ const PlaceOrders = () => {
               <img className='h-5 mx-4' src={assets.rezorpay} alt="" />
             </div>
           </div>
-        </div>
 
+<div className='w-full text-end mt-8'>
+<button onClick={()=>navigate('/order')} className='bg-black text-white px-16  py-3 text-sm'>PLACE ORDER</button>
+</div>
+
+        </div>
       </div>
     </div>
   )
