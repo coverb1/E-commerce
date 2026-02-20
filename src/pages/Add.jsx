@@ -35,7 +35,7 @@ const Add = () => {
           </label>
 
           <label htmlFor="image4">
-            <img className='w-20 h-28 cursor-pointer' src={!image4 ? assets.upload:URL.createObjectURL(image4)} alt="" />
+            <img className='w-20 h-28 cursor-pointer' src={!image4 ? assets.upload : URL.createObjectURL(image4)} alt="" />
             <input onChange={(e) => setImage4(e.target.files[0])} type="file" id='image4' hidden />
           </label>
 
@@ -44,21 +44,21 @@ const Add = () => {
 
       <div className='w-full'>
         <p>Product name</p>
-        <input onChange={(e)=>setName(e.target.value)} value={name} className='w-full max-w[500px] px-3 py-2' type="text" placeholder='typer here' required />
+        <input onChange={(e) => setName(e.target.value)} value={name} className='w-full max-w[500px] px-3 py-2' type="text" placeholder='typer here' required />
       </div>
 
-    
+
 
 
       <div className='w-full'>
         <p>Product Description</p>
-        <textarea onChange={(e)=>setDescription(e.target.value)} value={description} className='w-full max-w[500px] px-3 py-2' type="text" placeholder='write Description' required />
+        <textarea onChange={(e) => setDescription(e.target.value)} value={description} className='w-full max-w[500px] px-3 py-2' type="text" placeholder='write Description' required />
       </div>
 
       <div >
         <div>
           <p className='mb-2'>Product category</p>
-          <select onChange={(e)=>setCategory(e.target.value)} value={category} className='w-full px-3 py-2'>
+          <select onChange={(e) => setCategory(e.target.value)} value={category} className='w-full px-3 py-2'>
             <option value="Men">Men</option>
             <option value="Women">Women</option>
             <option value="Kids">Kids</option>
@@ -67,30 +67,30 @@ const Add = () => {
 
         <div>
           <p>Product price</p>
-          <input onChange={(e)=>setPrice(e.target.value)} value={price} className='w-full px-3 py-2 sm:w-[120px]' type="Number" placeholder='25' />
+          <input onChange={(e) => setPrice(e.target.value)} value={price} className='w-full px-3 py-2 sm:w-[120px]' type="Number" placeholder='25' />
         </div>
 
         <div>
           <p>Product Sizes</p>
           <div className=' flex flex-row gap-3'>
-            <div onChange={()=>setSizes(prev=>prev.includes('S')?prev.filter(item=>item!=="S"):[...prev])}>
-              <p className='bg-slate-200 px-3 py-1 cursor-pointer'>S</p>
+            <div onClick={() => setSizes(prev => prev.includes('S') ? prev.filter(item => item !== "S") : [...prev,"S"])}>
+              <p className={` ${Sizes.includes("S")? "bg-pink-100" :"bg-slate-200"} px-3 py-1 cursor-pointer`}>S</p>
             </div>
 
-            <div>
-              <p className='bg-slate-200 px-3 py-1 cursor-pointer'>M</p>
+            <div onClick={() => setSizes(prev => prev.includes("M") ? prev.filter(item => item !== "M") : [...prev,"M"])}>
+              <p className={` ${Sizes.includes("M")? "bg-pink-100" :"bg-slate-200"} px-3 py-1 cursor-pointer`}>M</p>
             </div>
 
-            <div>
-              <p className='bg-slate-200 px-3 py-1 cursor-pointer'>L</p>
+            <div onClick={() => setSizes(prev => prev.includes("L") ? prev.filter(item => item !== "L") : [...prev,"L"])}>
+              <p className={` ${Sizes.includes("L")? "bg-pink-100" :"bg-slate-200"} px-3 py-1 cursor-pointer`}>L</p>
             </div>
 
-            <div>
-              <p className='bg-slate-200 px-3 py-1 cursor-pointer'>XL</p>
+            <div onClick={() => setSizes(prev => prev.includes("XL") ? prev.filter(item => item !== "XL") : [...prev,"XL"])}>
+              <p className={` ${Sizes.includes("XL")? "bg-pink-100" :"bg-slate-200"} px-3 py-1 cursor-pointer`}>XL</p>
             </div>
 
-            <div>
-              <p className='bg-slate-200 px-3 py-1 cursor-pointer'>XXL</p>
+            <div onClick={() => setSizes(prev => prev.includes("XXL") ? prev.filter(item => item !== "XXL") : [...prev,"XXL"])}>
+              <p className={` ${Sizes.includes("XXL")? "bg-pink-100" :"bg-slate-200"} px-3 py-1 cursor-pointer`}>XXL</p>
             </div>
           </div>
         </div>
