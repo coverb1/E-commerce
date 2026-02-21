@@ -9,6 +9,7 @@ import Login from './components/Login'
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify'
 export const backendUrl = import.meta.env.VITE_BACKEND_URL
+export const currency='$'
 
 const App = () => {
   // check if user not Authorised 
