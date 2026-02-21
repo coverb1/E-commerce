@@ -4,6 +4,8 @@ import axios from 'axios'
 import { toast, ToastContainer } from 'react-toastify'
 import { backendUrl } from '../App'
 
+
+
 const Add = () => {
 
   const [image1, setImage1] = useState(false)
@@ -44,13 +46,14 @@ const Add = () => {
       })
 
       if (responce.data.success) {
+        toast.success(responce.data.messsage)
         toast.success("Item added")
-        description('')
-        setName("")
-        setImage1('')
-        setImage2('')
-        setImage3('')
-        setImage4('')
+        setDescription('')
+        setName('')
+        setImage1(false)
+        setImage2(false)
+        setImage3(false)
+        setImage4(false)
         setPrice('')
       }
 else{
@@ -58,7 +61,7 @@ else{
 }
       console.log(responce)
     } catch (error) {
-toast.error(error.messsage)
+toast.error(error.message)
     }
 
   }
