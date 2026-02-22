@@ -15,7 +15,7 @@ const Product = () => {
     products.map((item) => {
       if (item._id === productId) {
         setproductData(item)
-        setImage(item.image[0])
+        setImage(item.images[0])
       return null
       }
     })
@@ -35,7 +35,7 @@ const Product = () => {
 
         {/* THUMBNAILS */}
         <div className="flex flex-col gap-3 w-[12%]">
-          {productData.image.map((item, index) => (
+          {productData.images.map((item, index) => (
             <img
               key={index}
               src={item}
