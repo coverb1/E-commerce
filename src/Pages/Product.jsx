@@ -107,3 +107,5 @@ const Product = () => {
 }
 
 export default Product
+
+//  is showing full details of product when someone clicks on it

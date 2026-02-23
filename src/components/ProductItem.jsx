@@ -7,7 +7,8 @@ const ProductItem = ({ id, image, name, price }) => {
     return (
         <Link className='text-gray-700 flex flex-col items-center ' to={`/product/${id}`}>
             <div className='overflow-hidden flex justify-center items-center mt-10'>
-                <img className='hover:scale-100 transition ease-in-out w-52 h-54' src={image[0]} alt="" />
+                {/* this line has problem */}
+                <img className='hover:scale-100 transition ease-in-out w-52 h-53' src={image?.[0]} alt="" /> 
             </div>
             <p className='pt-3 pb-1 text-sm'>{name}</p>
             <p className='text-sm font-medium'>{currency}{price}</p>
@@ -16,3 +17,5 @@ const ProductItem = ({ id, image, name, price }) => {
 }
 
 export default ProductItem
+
+// Shows one product as a card in a collection or list.
