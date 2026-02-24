@@ -15,6 +15,8 @@ const ShopContextProvider = (props) => {
     const [cartItem, setCartItem] = useState({})
     const navigate = useNavigate()
     const [products, setproducts] = useState([])
+    const [token, setToken] = useState('')
+
     const addToCart = async (itemId, size) => {
         if (!size) {
             toast.error('please select Product size')
@@ -80,25 +82,25 @@ const ShopContextProvider = (props) => {
         return totalAmount
     }
 
-const getProductData=async()=>{
-    try {
-        const responce = await axios.get(backendUrl + '/api/products/list')
-        console.log(responce)
-       if (responce.data.success) {
-        setproducts(responce.data.allProducts)
-       }
-       else{
-        toast.error(responce.data.message)
-       }
-    } catch (error) {
-       console.log(error)
-       toast.error(error.message) 
+    const getProductData = async () => {
+        try {
+            const responce = await axios.get(backendUrl + '/api/products/list')
+            console.log(responce)
+            if (responce.data.success) {
+                setproducts(responce.data.allProducts)
+            }
+            else {
+                toast.error(responce.data.message)
+            }
+        } catch (error) {
+            console.log(error)
+            toast.error(error.message)
+        }
     }
-}
 
-useEffect(()=>{
-    getProductData()
-},[])
+    useEffect(() => {
+        getProductData()
+    }, [])
 
     const value = {
         updateQuantity,
@@ -113,8 +115,9 @@ useEffect(()=>{
         getCartCount,
         getCartAmount,
         navigate,
-        backendUrl
-
+        backendUrl,
+        token,
+        setToken
     }
 
     return (

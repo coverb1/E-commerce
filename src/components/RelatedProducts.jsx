@@ -10,9 +10,12 @@ const RelatedProducts = ({ category }) => {
     if (products.length > 0) {
       let productscopy = products.slice()
       productscopy = productscopy.filter((item) => category === item.category)
-      setRelated(productscopy.slice(0, 5))
+      console.log(productscopy)
+      setRelated(productscopy.slice(0,3))
     }
   }, [products])
+
+
 
   return (
     <div className='my-24'>
@@ -21,7 +24,7 @@ const RelatedProducts = ({ category }) => {
       </div>
       <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5'>
 {related.map((item,index)=>(
-<ProductItem key={index} id={item._id} name={item.name} price={item.price} image={item.image}/>
+<ProductItem key={index} id={item._id} name={item.name} price={item.price} image={item.images}/>
 ))}
       </div>
     </div>
