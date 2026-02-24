@@ -9,45 +9,56 @@ const Login = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+const onSubmitHandler = async (e) => {
+  e.preventDefault()
 
-  const onSubmitHandler = async (e) => {
-    e.preventDefault()
-    try {
-      if (currentstate === 'Login') {
-        const responce = await axios.post(backendUrl + '/api/user/loginuser', {
-          email,
-          password
-        })
+  try {
+    if (currentstate === 'Login') {
 
-        if (responce.data.success) {
-          setToken(responce.data.token)
-          localStorage.setItem('token', responce.data.token)
-          // console.log(responce.data.success)
-          toast.success(responce.data.message)
-          setEmail('')
-          setPassword('')
-        }
-        else {
-          toast.error(responce.data.message)
-        }
-      }
-      else {
-        const responceRegister = await axios.post(backendUrl + '/api/user/register', {
-          name,
-          email,
-          password
-        })
-        console.log(responceRegister.data.success)
-        toast.success(responceRegister.data.success)
+      const response = await axios.post(
+        backendUrl + '/api/user/loginuser',
+        { email, password }
+      )
+
+      if (response.data.success) {
+        setToken(response.data.token)
+        localStorage.setItem('token', response.data.token)
+        toast.success(response.data.message)
+        setEmail('')
+        setPassword('')
+      } else {
+        toast.error(response.data.message)
       }
 
-    } catch (error) {
-      console.log(error)
-      toast.error(error.message)
+    } else {
+
+      const responseRegister = await axios.post(
+        backendUrl + '/api/user/register',
+        { name, email, password }
+      )
+
+      if (responseRegister.data.success) {
+        toast.success(responseRegister.data.message)
+        setEmail('')
+        setName('')
+        setPassword('')
+      } else {
+        toast.error(responseRegister.data.message)
+      }
+
     }
+
+  } catch (error) {
+    console.log(error)
+    toast.error(error.message)
   }
+}
 
-
+useEffect(()=>{
+if (token) {
+  navigate('/')
+}
+},[token])
 
   return (
     <form onSubmit={onSubmitHandler} className='flex flex-col items-center w-[90%] sm:max-w-96 m-auto mt-14 gap-5 text-gray-800'>
