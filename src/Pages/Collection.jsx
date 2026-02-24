@@ -54,7 +54,7 @@ const Collection = () => {
 
   useEffect(() => {
     setFilterProducts(products)
-  },[products])
+  }, [products])
 
   const sortProduct = () => {
     let fpCopy = filterProducts.slice()
@@ -88,13 +88,13 @@ const Collection = () => {
           <p className="text-sm font-medium mb-3">Categories</p>
           <div className="flex flex-col gap-3 text-sm text-gray-600">
             <label className="flex items-center gap-2">
-              <input type="checkbox" value={'men'} onChange={togglecategory} /> Men
+              <input type="checkbox" value={'Men'} onChange={togglecategory} /> Men
             </label>
             <label className="flex items-center gap-2">
-              <input type="checkbox" value={'girl'} onChange={togglecategory} /> Women
+              <input type="checkbox" value={'Girl'} onChange={togglecategory} /> Women
             </label>
             <label className="flex items-center gap-2">
-              <input type="checkbox" value={'kids'} onChange={togglecategory} /> Kids
+              <input type="checkbox" value={'Kids'} onChange={togglecategory} /> Kids
             </label>
           </div>
         </div>
