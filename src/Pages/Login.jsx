@@ -4,61 +4,61 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 
 const Login = () => {
-  const [currentstate, setCurrentState] = useState('Sign Up')
+  const [currentstate, setCurrentState] = useState('Login')
   const { token, setToken, backendUrl, navigate } = useContext(shopContext)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-const onSubmitHandler = async (e) => {
-  e.preventDefault()
+  const onSubmitHandler = async (e) => {
+    e.preventDefault()
 
-  try {
-    if (currentstate === 'Login') {
+    try {
+      if (currentstate === 'Login') {
 
-      const response = await axios.post(
-        backendUrl + '/api/user/loginuser',
-        { email, password }
-      )
+        const response = await axios.post(
+          backendUrl + '/api/user/loginuser',
+          { email, password }
+        )
 
-      if (response.data.success) {
-        setToken(response.data.token)
-        localStorage.setItem('token', response.data.token)
-        toast.success(response.data.message)
-        setEmail('')
-        setPassword('')
+        if (response.data.success) {
+          setToken(response.data.token)
+          localStorage.setItem('token', response.data.token)
+          toast.success(response.data.message)
+          setEmail('')
+          setPassword('')
+        } else {
+          toast.error(response.data.message)
+        }
+
       } else {
-        toast.error(response.data.message)
+
+        const responseRegister = await axios.post(
+          backendUrl + '/api/user/register',
+          { name, email, password }
+        )
+
+        if (responseRegister.data.success) {
+          toast.success(responseRegister.data.message)
+          setEmail('')
+          setName('')
+          setPassword('')
+        } else {
+          toast.error(responseRegister.data.message)
+        }
+
       }
 
-    } else {
-
-      const responseRegister = await axios.post(
-        backendUrl + '/api/user/register',
-        { name, email, password }
-      )
-
-      if (responseRegister.data.success) {
-        toast.success(responseRegister.data.message)
-        setEmail('')
-        setName('')
-        setPassword('')
-      } else {
-        toast.error(responseRegister.data.message)
-      }
-
+    } catch (error) {
+      console.log(error)
+      toast.error(error.message)
     }
-
-  } catch (error) {
-    console.log(error)
-    toast.error(error.message)
   }
-}
 
-useEffect(()=>{
-if (token) {
-  navigate('/')
-}
-},[token])
+  useEffect(() => {
+    if (token) {
+      navigate('/')
+    }
+  }, [token])
 
   return (
     <form onSubmit={onSubmitHandler} className='flex flex-col items-center w-[90%] sm:max-w-96 m-auto mt-14 gap-5 text-gray-800'>
