@@ -3,10 +3,11 @@ import { useParams } from 'react-router-dom'
 import { shopContext } from '../context/ShopContext'
 import { assets } from '../assets/assets'
 import RelatedProducts from '../components/RelatedProducts'
+import { toast } from 'react-toastify'
 
 const Product = () => {
   const { productId } = useParams()
-  const { products, currency, addToCart, cartItem } = useContext(shopContext)
+  const { products, currency, addToCart, cartItem ,token} = useContext(shopContext)
   const [size, setSize] = useState('')
   const [productData, setproductData] = useState(false)
   const [image, setImage] = useState('')
@@ -20,6 +21,15 @@ const Product = () => {
       }
     })
   }
+
+
+const handleAddToCart=()=>{
+  if (!token) {
+    toast.error('please first Login')
+    return
+  }
+  addToCart(productData._id,size)
+}
 
   useEffect(()=>{
     FetchProductData()
@@ -71,6 +81,7 @@ const Product = () => {
             <img src={assets.star} alt="" className='w-5 3' />
             <p className='pl-2'>(122)</p>
           </div>
+        
           <p className='mt-5 text-3xl font-medium'>{currency}{productData.price}</p>
           <p className='mt-5 text-gray-500 md:w-4/5'>{productData.description}</p>
           <div className=' flex flex-col gap-4 my-8'>
@@ -81,7 +92,7 @@ const Product = () => {
               ))}
             </div>
           </div >
-          <button onClick={() => addToCart(productData._id,size)} className='bg-black text-white px-8 py-3 text-sm active:bg-gray-700'>ADD TO CART</button>
+          <button onClick={handleAddToCart} className='bg-black text-white px-8 py-3 text-sm active:bg-gray-700'>ADD TO CART</button>
           <hr className='mt-8 sm:w-4/5' />
           <div className='text-sm text-gray-500 flex flex-col gap-1 mt-5'>
             <p>100% Original Products.</p>

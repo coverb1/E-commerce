@@ -53,7 +53,11 @@ toast.error(error.message)
     }
     }
 
-  
+  useEffect(()=>{
+    if (!token) {
+        navigate('/login')
+    }
+  },[token])
 
     const getCartCount = () => {
         let totalCount = 0

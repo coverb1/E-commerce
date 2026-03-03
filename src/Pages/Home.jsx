@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import LatestCollection from '../components/LatestCollection'
+import { shopContext } from '../context/ShopContext'
 
 const Home = () => {
-  return (
+const {token}=useContext(shopContext)
+
+
+return (
     <div>
       <LatestCollection/>
-     
     </div>
   )
 }
