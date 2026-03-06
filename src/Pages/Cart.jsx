@@ -7,7 +7,7 @@ import { toast } from 'react-toastify'
 
 
 const Cart = () => {
-  const { products, currency, cartItem, updateQuantity, navigate,backendUrl } = useContext(shopContext)
+  const { products, currency, cartItem, updateQuantity, navigate, backendUrl } = useContext(shopContext)
   const [cartData, setCartData] = useState([])
 
   useEffect(() => {
@@ -26,22 +26,23 @@ const Cart = () => {
     setCartData(tempData)
   }, [cartItem])
 
-const handleDeleteItem=async(item)=>{
-try {
-    const responce=await axios.delete(backendUrl + `/api/cart/delete${item._id}`,{
-    data:{itemId:item._id},
-    headers:{
-      token:localStorage.getItem('token')
+  const handleDeleteItem = async (item) => {
+    try {
+      const responce = await axios.delete(backendUrl + `/api/cart/delete${item._id}`, {
+        data: { itemId: item._id },
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      });
+      console.log(responce.data)
+      toast.success('Item deleted well')
+      updateQuantity(item._id, item.size, 0)
+    } catch (error) {
+      console.log(error)
+      toast.error(error.message)
     }
-  });
-  console.log(responce.data)
-  toast.success('Item deleted well')
-  updateQuantity(item._id, item.size, 0)
-} catch (error) {
- console.log(error)
- toast.error(error.message) 
-}
-}
+  }
+
 
   return (
     <div className="border-t pt-14 px-4 sm:px-10">
@@ -90,7 +91,7 @@ try {
               {/* RIGHT: quantity */}
               <input onChange={(e) => e.target.value === '' || e.target.value === '0' ? null : updateQuantity(item._id, item.size, Number(e.target.value))} className="border w-12 sm:w-16 text-center px-1 py-1" type="number" min={1}
                 defaultValue={item.quantity} />
-              <img onClick={()=> handleDeleteItem(item)} src={assets.deleteIcon} className='w-4 mr-5 sm:w-5 cursor-pointer' alt="" />
+              <img onClick={() => handleDeleteItem(item)} src={assets.deleteIcon} className='w-4 mr-5 sm:w-5 cursor-pointer' alt="" />
             </div>
           )
         })}
@@ -99,7 +100,7 @@ try {
         <div className='w-full sm:w-[450px]'>
           <CartTotal />
           <div className='w-full text-end'>
-            <button onClick={()=>navigate('/placeOrders')} className='bg-black text-white text-sm my-8 px-8 py-3'>PROCEED TO CHECKOUT</button>
+            <button onClick={() => navigate('/placeOrders')} className='bg-black text-white text-sm my-8 px-8 py-3'>PROCEED TO CHECKOUT</button>
           </div>
         </div>
       </div>
