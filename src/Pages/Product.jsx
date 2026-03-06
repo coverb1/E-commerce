@@ -7,7 +7,7 @@ import { toast } from 'react-toastify'
 
 const Product = () => {
   const { productId } = useParams()
-  const { products, currency, addToCart, cartItem ,token} = useContext(shopContext)
+  const { products, currency, addToCart, cartItem, token } = useContext(shopContext)
   const [size, setSize] = useState('')
   const [productData, setproductData] = useState(false)
   const [image, setImage] = useState('')
@@ -17,26 +17,26 @@ const Product = () => {
       if (item._id === productId) {
         setproductData(item)
         setImage(item.images[0])
-      return null
+        return null
       }
     })
   }
 
 
-const handleAddToCart=()=>{
-  if (!token) {
-    toast.error('please first Login')
-    return
+  const handleAddToCart = () => {
+    if (!token) {
+      toast.error('please first Login')
+      return
+    }
+    addToCart(productData._id, size)
   }
-  addToCart(productData._id,size)
-}
-
-  useEffect(()=>{
-    FetchProductData()
-  },[products,productId])
 
   useEffect(() => {
-   console.log((cartItem))
+    FetchProductData()
+  }, [products, productId])
+
+  useEffect(() => {
+    console.log((cartItem))
   }, [cartItem])
 
   return productData ? (
@@ -81,7 +81,7 @@ const handleAddToCart=()=>{
             <img src={assets.star} alt="" className='w-5 3' />
             <p className='pl-2'>(122)</p>
           </div>
-        
+
           <p className='mt-5 text-3xl font-medium'>{currency}{productData.price}</p>
           <p className='mt-5 text-gray-500 md:w-4/5'>{productData.description}</p>
           <div className=' flex flex-col gap-4 my-8'>
