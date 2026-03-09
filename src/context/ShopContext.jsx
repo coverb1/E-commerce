@@ -75,18 +75,28 @@ const ShopContextProvider = (props) => {
                     if (cartItem[items][item] > 0) {
                         totalCount += cartItem[items][item];
                     }
-                } catch (error) {}
+                } catch (error) { }
             }
         }
         return totalCount;
     };
 
-    const updateQuantity = async (itemId, size, quantity) => {
-        let cartData = structuredClone(cartItem);
-        cartData[itemId][size] = quantity;
-        setCartItem(cartData);
-        console.log(setCartItem);
-    };
+    const updateQuantity=async(itemId,size,quantity)=>{
+        let cartdata=structuredClone(cartItem)
+        cartItem[itemId][size]=quantity
+        setCartItem(cartdata)
+
+        try {
+            const responce=await axios.post(backendUrl +'/api/cart/update',{itemId,size,quantity},{
+                headers:{
+                    token:localStorage.getItem('token')
+                }
+            })
+            console.log(responce.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const getCartAmount = () => {
         let totalAmount = 0;
@@ -97,7 +107,7 @@ const ShopContextProvider = (props) => {
                     if (cartItem[items][item] > 0) {
                         totalAmount += itemInfo.price * cartItem[items][item];
                     }
-                } catch (error) {}
+                } catch (error) { }
             }
         }
         return totalAmount;

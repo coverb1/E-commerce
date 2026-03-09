@@ -28,7 +28,7 @@ const Cart = () => {
 
   const handleDeleteItem = async (item) => {
     try {
-      const responce = await axios.delete(backendUrl + `/api/cart/delete${item._id}`, {
+      const responce = await axios.delete(backendUrl + `/api/cart/delete/${item._id}`, {
         data: { itemId: item._id },
         headers: {
           token: localStorage.getItem('token')
