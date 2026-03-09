@@ -2,6 +2,8 @@ import React, { useContext, useState } from 'react'
 import CartTotal from '../components/CartTotal'
 import { assets } from '../assets/assets'
 import { shopContext } from '../context/ShopContext'
+import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const PlaceOrders = () => {
 
@@ -50,6 +52,26 @@ for(const item in cartItem[items]){
     }
   }
 }
+}
+let OrderData={
+  address:formData,
+  items:orderItems,
+  amount:getCartAmount()+delivery_fee
+}
+switch(method){
+  //api call for stripe
+  case 'stripe':
+    const responce=await axios.post(backendUrl +'/api/order/place',OrderData,{
+      headers:localStorage.getItem('token')
+    })
+    if (responce.data.success) {
+      setCartItem({})
+      navigate('/orders')
+    }else{
+      toast.error(responce.data.message)
+    }
+    break;
+    default:
 }
 console.log(orderItems)
   } catch (error) {
