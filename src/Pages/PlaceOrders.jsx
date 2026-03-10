@@ -7,7 +7,7 @@ import { toast } from 'react-toastify'
 
 const PlaceOrders = () => {
 
-const {navigate,backendUrl,token,cartItem,setCartItem,getCartAmount,delivery_fee,products}=useContext(shopContext)
+const {navigate,backendUrl,cartItem,setCartItem,getCartAmount,delivery_fee,products}=useContext(shopContext)
 
 const [method,setmethod]=useState('stripe')
 const [formData,setFormData]=useState({
@@ -62,7 +62,9 @@ switch(method){
   //api call for stripe
   case 'stripe':
     const responce=await axios.post(backendUrl +'/api/order/place',OrderData,{
-      headers:localStorage.getItem('token')
+     headers:{
+      token:localStorage.getItem('token')
+     }
     })
     if (responce.data.success) {
       setCartItem({})
@@ -102,7 +104,7 @@ console.log(orderItems)
           <input name='zip' required type="text" onChange={onchangeHandler} value={formData.zip} className='border border-gray-300 rounded py-1.5 px-3.5 w-full' placeholder='Zipcode' />
           <input name='country' required type="text" onChange={onchangeHandler} value={formData.country} className='border border-gray-300 rounded py-1.5 px-3.5 w-full' placeholder='country' />
         </div>
-        <input name='phone' required onChangeCapture={onchangeHandler} value={formData.phone} type="text" className='border border-gray-300 rounded py-1.5 px-3.5 w-full' placeholder='Phone' />
+        <input name='phone' required onChange={onchangeHandler} value={formData.phone} type="text" className='border border-gray-300 rounded py-1.5 px-3.5 w-full' placeholder='Phone' />
       </div>
       {/* Right side */}
       <div className='mt-8'>
