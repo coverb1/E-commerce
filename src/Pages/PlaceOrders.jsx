@@ -68,7 +68,7 @@ switch(method){
     })
     if (responce.data.success) {
       setCartItem({})
-      navigate('/orders')
+      navigate('/order')
     }else{
       toast.error(responce.data.message)
     }
