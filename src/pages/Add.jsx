@@ -5,7 +5,6 @@ import { toast, ToastContainer } from 'react-toastify'
 import { backendUrl } from '../App'
 
 
-
 const Add = () => {
 
   const [image1, setImage1] = useState(false)
@@ -46,8 +45,7 @@ const Add = () => {
       })
 
       if (responce.data.success) {
-        toast.success(responce.data.messsage)
-        toast.success("Item added")
+        toast.success(responce.data.message)
         setDescription('')
         setName('')
         setImage1(false)
