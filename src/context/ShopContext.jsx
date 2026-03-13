@@ -83,7 +83,7 @@ const ShopContextProvider = (props) => {
 
     const updateQuantity=async(itemId,size,quantity)=>{
         let cartdata=structuredClone(cartItem)
-        cartItem[itemId][size]=quantity
+        cartdata[itemId][size]=quantity
         setCartItem(cartdata)
 
         try {
