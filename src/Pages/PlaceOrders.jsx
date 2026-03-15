@@ -80,8 +80,11 @@ const PlaceOrders = () => {
             }
           })
           if (responcestripe.data.success) {
+            setCartItem({})
+            // navigate('/order')
             const { session_url } = responcestripe.data
             window.location.replace(session_url)
+
           }
           else {
             toast.error(responcestripe.data.message)
