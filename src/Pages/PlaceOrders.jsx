@@ -7,79 +7,93 @@ import { toast } from 'react-toastify'
 
 const PlaceOrders = () => {
 
-const {navigate,backendUrl,cartItem,setCartItem,getCartAmount,delivery_fee,products}=useContext(shopContext)
+  const { navigate, backendUrl, cartItem, setCartItem, getCartAmount, delivery_fee, products } = useContext(shopContext)
 
-const [method,setmethod]=useState('stripe')
-const [formData,setFormData]=useState({
-  firstName:'',
-  secondName:'',
-  email:'',
-  street:'',
-  city:'',
-  state:'',
-  zip:'',
-  country:'',
-  phone:'',
-  location:''
-})
+  const [method, setmethod] = useState('stripe')
+  const [formData, setFormData] = useState({
+    firstName: '',
+    secondName: '',
+    email: '',
+    street: '',
+    city: '',
+    state: '',
+    zip: '',
+    country: '',
+    phone: '',
+    location: ''
+  })
 
-const onchangeHandler=(event)=>{
-  const name=event.target.name
-  const value=event.target.value
+  const onchangeHandler = (event) => {
+    const name = event.target.name
+    const value = event.target.value
 
-  setFormData(data=>({...data,[name]:value}))
+    setFormData(data => ({ ...data, [name]: value }))
 
-}
+  }
 
-const onsubmitHandler=async(event)=>{
-  event.preventDefault()
-  try {
-    let orderItems=[] // this will store what user added 
+  const onsubmitHandler = async (event) => {
+    event.preventDefault()
+    try {
+      let orderItems = [] // this will store what user added 
 
-    //the first loop goes throuh each productid
+      //the first loop goes throuh each productid
 
-for(const items in cartItem){
-  //This loop through sizes inside the product.
-for(const item in cartItem[items]){
-  if (cartItem[items][item]>0) {
-//if items=id of product  like when   items=p1 it finds { _id:"p1", name:"Tshirt", price:20 } then make copy
-//items is id id from  shopping cart and product_.id is id from my productList
-    const itemsInfo=structuredClone(products.find(product=>product._id===items))
-    if (itemsInfo) {
-      itemsInfo.size=item
-      itemsInfo.quantity=cartItem[items][item]
-      orderItems.push(itemsInfo)
+      for (const items in cartItem) {
+        //This loop through sizes inside the product.
+        for (const item in cartItem[items]) {
+          if (cartItem[items][item] > 0) {
+            //if items=id of product  like when   items=p1 it finds { _id:"p1", name:"Tshirt", price:20 } then make copy
+            //items is id id from  shopping cart and product_.id is id from my productList
+            const itemsInfo = structuredClone(products.find(product => product._id === items))
+            if (itemsInfo) {
+              itemsInfo.size = item
+              itemsInfo.quantity = cartItem[items][item]
+              orderItems.push(itemsInfo)
+            }
+          }
+        }
+      }
+      let OrderData = {
+        address: formData,
+        items: orderItems,
+        amount: getCartAmount() + delivery_fee
+      }
+      switch (method) {
+        //api call for stripe
+        case 'cod':
+          const responce = await axios.post(backendUrl + '/api/order/place', OrderData, {
+            headers: {
+              token: localStorage.getItem('token')
+            }
+          })
+          if (responce.data.success) {
+            setCartItem({})
+            navigate('/order')
+          } else {
+            toast.error(responce.data.message)
+          }
+          break;
+        case 'stripe':
+          const responcestripe = await axios.post(backendUrl + '/api/order/stripe', OrderData, {
+            headers: {
+              token: localStorage.getItem('token')
+            }
+          })
+          if (responcestripe.data.success) {
+            const { session_url } = responcestripe.data
+            window.location.replace(session_url)
+          }
+          else {
+            toast.error(responcestripe.data.message)
+          }
+          break;
+        default:
+      }
+      console.log(orderItems)
+    } catch (error) {
+      console.log(error)
     }
   }
-}
-}
-let OrderData={
-  address:formData,
-  items:orderItems,
-  amount:getCartAmount()+delivery_fee
-}
-switch(method){
-  //api call for stripe
-  case 'stripe':
-    const responce=await axios.post(backendUrl +'/api/order/place',OrderData,{
-     headers:{
-      token:localStorage.getItem('token')
-     }
-    })
-    if (responce.data.success) {
-      setCartItem({})
-      navigate('/order')
-    }else{
-      toast.error(responce.data.message)
-    }
-    break;
-    default:
-}
-console.log(orderItems)
-  } catch (error) {
-    console.log(error)
-  }
-}
 
   return (
 
@@ -96,7 +110,7 @@ console.log(orderItems)
         </div>
         <input name='email' required onChange={onchangeHandler} value={formData.email} type="Email" className='border border-gray-300 rounded py-1.5 px-3.5 w-full' placeholder='Email Adress' />
         <input name='street' required onChange={onchangeHandler} value={formData.street} type="text" className='border border-gray-300 rounded py-1.5 px-3.5 w-full' placeholder='Street' />
-        <div  className='flex gap-3'>
+        <div className='flex gap-3'>
           <input name='city' required onChange={onchangeHandler} value={formData.city} type="text" className='border border-gray-300 rounded py-1.5 px-3.5 w-full' placeholder='City' />
           <input name='location' required type="text" onChange={onchangeHandler} value={formData.location} className='border border-gray-300 rounded py-1.5 px-3.5 w-full' placeholder='Location' />
         </div>
@@ -115,19 +129,37 @@ console.log(orderItems)
         <div className='mt-12'>
           <p>PAYMENT METHOD</p>
           <div className='flex gap-3 flex-col lg:flex-row'>
-            <div className='flex items-center gap-3 border p-2 px-3 cursor-pointer'>
-              <p className={`min-w-3.5 h-3.5 border rounded-full`}></p>
+            <div
+              onClick={() => setmethod('stripe')}
+
+              className={`flex items-center gap-3 border p-2 px-3 cursor-pointer 
+${method === 'stripe' ? 'border-green-500 bg-green-50' : ''}`}
+            >
+
+              <p className={`min-w-3.5 h-3.5 border rounded-full
+${method === 'stripe' ? 'bg-green-500' : ''}`}></p>
+
               <img className='h-5 mx-4' src={assets.stripelogo} alt="" />
+
             </div>
-            <div className='flex items-center gap-3 border p-2 px-3 cursor-pointer'>
-              <p className={`min-w-3.5 h-3.5 border rounded-full`}></p>
+            <div
+              onClick={() => setmethod('razorpay')}
+
+              className={`flex items-center gap-3 border p-2 px-3 cursor-pointer
+   ${method === 'razorpay' ? 'border-green-500 bg-green-50' : ''}`}
+            >
+
+              <p className={`min-w-3.5 h-3.5 border rounded-full
+    ${method === 'razorpay' ? 'bg-green-500' : ''}`}></p>
+
               <img className='h-5 mx-4' src={assets.rezorpay} alt="" />
+
             </div>
           </div>
 
-<div className='w-full text-end mt-8'>
-<button type='submit'  className='bg-black text-white px-16  py-3 text-sm'>PLACE ORDER</button>
-</div>
+          <div className='w-full text-end mt-8'>
+            <button type='submit' className='bg-black text-white px-16  py-3 text-sm'>PLACE ORDER</button>
+          </div>
 
         </div>
       </div>

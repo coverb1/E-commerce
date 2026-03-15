@@ -166,3 +166,6 @@ const ShopContextProvider = (props) => {
 };
 
 export default ShopContextProvider;
+
+// cartItem usually means one item in the cart
+// cartData usually means all the items in the cart, like an array:
